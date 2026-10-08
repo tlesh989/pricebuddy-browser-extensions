@@ -9,8 +9,9 @@ A Manifest V3 Chrome extension that acts as a companion client for a self-hosted
 only** — all data lives on the user's own PriceBuddy server, reached over its
 HTTP API with a URL + token the user configures.
 
-Currently only `chrome/` exists. The repo name is plural because Firefox is
-planned; nothing has been factored for that yet.
+Only `chrome/` exists and it loads in Firefox too: `manifest.json` carries both
+`background.service_worker` and `background.scripts` plus a `gecko` id. Keep the
+two background entries identical (CI checks).
 
 ## Commands
 
