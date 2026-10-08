@@ -5,11 +5,19 @@
   "version": "0.1.0",
   "description": "Pick price/title/image selectors on any product page and test them live against your PriceBuddy instance.",
   "homepage_url": "https://github.com/jez500/pricebuddy-browser-extensions",
-  "minimum_chrome_version": "102",
+  "minimum_chrome_version": "121",
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "pricebuddy-companion@tlesh989.github.io",
+      "strict_min_version": "140.0",
+      "data_collection_permissions": { "required": ["authenticationInfo", "websiteActivity"] }
+    }
+  },
   "permissions": ["storage", "scripting", "activeTab"],
   "optional_host_permissions": ["<all_urls>"],
   "background": {
     "service_worker": "src/background.js",
+    "scripts": ["src/background.js"],
     "type": "module"
   },
   "action": {

@@ -9,7 +9,7 @@ Browser extensions that act as companion clients for a self-hosted
 | Browser | Directory | Status |
 | ------- | --------- | ------ |
 | Chrome / Chromium / Edge | [`chrome/`](chrome/) | Published — [PriceBuddy Companion](https://chromewebstore.google.com/detail/pricebuddy-companion/khmeibbaaegidkjlkbckgnhfgpgfgnoe) on the Chrome Web Store |
-| Firefox | — | Not started |
+| Firefox | `chrome/` (same folder) | Untested in release; load via `about:debugging` → Load Temporary Add-on → `manifest.json` |
 
 ## What it does
 

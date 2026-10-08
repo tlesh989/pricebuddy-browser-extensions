@@ -504,13 +504,21 @@ rather than take the video's word for it.
 
 The repo is named `browser-extensions` (plural), so this is presumably coming.
 
-- **Firefox (AMO)** — free account, `web-ext sign` CLI, credentials as
-  `WEB_EXT_API_KEY`/`WEB_EXT_API_SECRET`. Requires MV3 `background.scripts` (or a
-  `browser_specific_settings` block) since Firefox does not support MV3
-  service workers identically. Firefox also **requires source-code submission**
-  if you add a build step — a reason to keep this extension bundler-free.
+- **Firefox (AMO)** — the same `chrome/` folder and the same zip. `manifest.json`
+  names the background file under both `service_worker` (Chrome) and `scripts`
+  (Firefox event page); each browser ignores the other's key, and
+  `web-ext lint` reports the unused `service_worker` as a harmless warning. Needs
+  `browser_specific_settings.gecko.id` (stable; changing it orphans installed
+  users and `storage.sync` data) and `data_collection_permissions` (the bearer token and
+  visited-page URLs go to the user's own server, so it declares
+  `authenticationInfo` and `websiteActivity`, not `none`), which is why
+  `strict_min_version` is 140. Check with
+  `npx web-ext@8.3.0 lint --source-dir chrome --ignore-files 'test/**' package.json`;
+  sign/upload with
+  `npx web-ext@8.3.0 sign --source-dir chrome --channel listed --ignore-files 'test/**' package.json`
+  (`WEB_EXT_API_KEY`/`WEB_EXT_API_SECRET`). No
+  build step, so the source submission is the repo itself.
 - **Edge Add-ons** — free, accepts the same Chrome zip almost verbatim. Has its
   own REST API (`microsoft/edge-addons-action` on the marketplace wraps it).
 
-Both can be added as extra jobs in `publish.yml` gated on the same tag, once the
-codebase is restructured with a shared `src/` and per-browser manifests.
+Both can be added as extra jobs in `publish.yml` gated on the same tag.
