@@ -341,9 +341,10 @@ by the suite, and that's where all of today's integration work landed.
 
 ## P5 — other browsers
 
-- [ ] Firefox: needs `browser_specific_settings` and an MV3
-      `background.scripts`/event-page shim. Keep the codebase build-step-free —
-      AMO requires source submission otherwise.
+- [x] Firefox: `browser_specific_settings` and `background.scripts` sit in the one
+      `chrome/manifest.json` (no shim, no build step, so AMO source submission is
+      the repo itself). Still to do: exercise it in Firefox 140+ by hand.
 - [ ] Edge: accepts the Chrome zip nearly verbatim; add a job to `publish.yml`.
-- [ ] Factor a shared `src/` with per-browser manifests **before** the second
-      copy exists, not after.
+- [x] Factor a shared `src/` with per-browser manifests **before** the second
+      copy exists, not after. (Not needed for Firefox: one manifest serves both.
+      Revisit if a browser needs keys the other rejects.)
