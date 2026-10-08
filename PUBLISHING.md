@@ -509,10 +509,14 @@ The repo is named `browser-extensions` (plural), so this is presumably coming.
   (Firefox event page); each browser ignores the other's key, and
   `web-ext lint` reports the unused `service_worker` as a harmless warning. Needs
   `browser_specific_settings.gecko.id` (stable; changing it orphans installed
-  users and `storage.sync` data) and `data_collection_permissions: none`, which
-  is why `strict_min_version` is 140. Check with
+  users and `storage.sync` data) and `data_collection_permissions` (the bearer token and
+  visited-page URLs go to the user's own server, so it declares
+  `authenticationInfo` and `websiteActivity`, not `none`), which is why
+  `strict_min_version` is 140. Check with
   `npx web-ext@8.3.0 lint --source-dir chrome --ignore-files 'test/**' package.json`;
-  sign/upload with `web-ext sign` (`WEB_EXT_API_KEY`/`WEB_EXT_API_SECRET`). No
+  sign/upload with
+  `npx web-ext@8.3.0 sign --source-dir chrome --channel listed --ignore-files 'test/**' package.json`
+  (`WEB_EXT_API_KEY`/`WEB_EXT_API_SECRET`). No
   build step, so the source submission is the repo itself.
 - **Edge Add-ons** — free, accepts the same Chrome zip almost verbatim. Has its
   own REST API (`microsoft/edge-addons-action` on the marketplace wraps it).
